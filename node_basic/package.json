@@ -1,0 +1,22 @@
+{
+  "name": "node-basic",
+  "version": "1.0.0",
+  "description": "Testing node basics with npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm",
+    "testing",
+    "node"
+  ],
+  "author": "mark",
+  "license": "ISC",
+  "dependencies": {
+    "cat-namer": "^1.3.2",
+    "random-cat-img": "^1.1.3",
+    "superheroes": "^3.0.0",
+    "supervillains": "^3.1.0"
+  }
+}
