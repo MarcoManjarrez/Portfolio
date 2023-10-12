@@ -1,0 +1,7 @@
+<%- include("partials/head"); -%> <%# calling my partial for the head, to not write everything it includes #%>
+<div class="container">
+    <div class="row">
+        <h1>Error of unquantifiable proportions! (A.K.A error <%= message %>)</h1> <%# this will grab a *message element from the server function that serves as an error handler #%>
+    </div>
+</div>
+<%- include("partials/footer"); -%> <%# calling my partial for the footer, to not write everything it includes #%>
