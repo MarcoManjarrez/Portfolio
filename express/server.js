@@ -8,17 +8,34 @@ app.engine("html", require("ejs").renderFile);
 app.set("view engine", "ejs");
 
 const family=["GMan", "Reggie", "The great king of evil ganon"];
+let name = "John";
 
 app.get('/', function (req, res) {
   //res.sendFile(__dirname + "/public/html/index.html");
-  res.render("index", { name: "hi" , family: family});
+  res.render("index", { name: name }); //purposefully not defining the variable family to test ejs conditionals
 });
 
-app.get('/about', (req, res) =>{
-  var name = req.query.name;
+app.get('/about', (req, res, next) =>{ // in here we are forcing a 400 error for show of local error handlers. It can be altered in many ways to see different properties
+  var loc_name = req.query.name;
   
-  res.send("<h1>Whadaya want, dont talk to me unless you are " + name + "</h1>");
-});
+  //res.send("<h1>Whadaya want, dont talk to me unless you are " + name + "</h1>");
+  if(!loc_name){
+    const error = new Error("Missing name value");
+    error.status = 400;
+    next(error);
+  } else {
+    name = loc_name;
+    res.redirect("/");
+  }
+ 
+},
+(err,req,res,next) => { //local error handler, only applies for this app.get
+  console.error(err.stack);
+  res.status(500).render("error", {
+    message: err.status + " " + err.message,
+  });
+}
+); 
 
 app.get('/about/:name', (req, res) =>{
   var name = req.params.name;
@@ -43,6 +60,10 @@ app.get('/stupid', function (req, res) {
     res.send('You stupid');
   });
   
+app.use((err,req,res,next)=>{
+  console.error(err.stack);
+  res.status(500).render("error", { message: "500"}); //this, in conjunction with error.ejs, will send an error to the user in a separate page
+});
 
 app.listen(3000, ()=>{
     console.log("Listening on port 3000");
