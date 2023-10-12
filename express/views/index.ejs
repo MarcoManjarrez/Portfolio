@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>You stupid (Express static content)</title>
-</head>
-<body>
+<%- include("partials/head"); -%> <%# calling my partial for the head, to not write everything it includes #%>
     <div class="container">
         <div class="row">
             <h1>Hello <%= name %> </h1>
@@ -54,11 +46,12 @@
     <div>Jinx the cat th</div>
     <div>
         <a href="../html/jinx.html">Link to picture of jinx the cat 2.0</a>
+        <% if(locals.family){ %> <%# this is to check if there is a variable *family in the local server. If there is not, it ignores the code inside it. The code will send an error if the locals. is deleted. In this case, the error.ejs would take control to send an error message #%>
         <% family.forEach(function(member){ %>
             <li><a href="/about/<%= name %>">Idiot fool <%= member %></a></li>
         <% }) %>
         
         <a href="/about/stupidIdiotBob">Idiot fool no.2</a>
     </div>
-</body>
-</html>
+    <% } %> <%# this is the closing for the if. The closing MUST be checked #%>
+<%- include("partials/footer"); -%> <%# calling my partial for the footer, to not write everything it includes #%>
