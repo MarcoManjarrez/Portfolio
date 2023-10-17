@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
+const https= require("https");
+const timeout = require("connect-timeout");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "ejs");
+app.use(timeout(120000));
 
 const family=["GMan", "Reggie", "The great king of evil ganon"];
 let name = "John";
@@ -13,6 +16,28 @@ let name = "John";
 app.get('/', function (req, res) {
   //res.sendFile(__dirname + "/public/html/index.html");
   res.render("index", { name: name }); //purposefully not defining the variable family to test ejs conditionals
+});
+
+const url = "https://api.toys/api/rock_paper_scissors";    //https://v2.jokeapi.dev/joke/Miscellaneous,Dark,Pun?blacklistFlags=nsfw,racist";
+app.get("/3v3", (req,res)=>{
+  var l_url = url + "/rock";
+  https.get(l_url, (response)=>{
+    //console.log(response);
+    console.log(response.statusCode);
+    if(response.statusCode==200){
+    response.on("data", (data)=>{
+      //console.log(data);
+      const player = JSON.parse(data);
+      //console.log(joke);
+      res.write("<h1> On my selection on rock, we get:</h1><br/>");
+      res.write("<h2>" + player.cpu +"</h2><br/>");
+      res.write("<h1>" + player.move +"</h1><br/>");
+      res.send();
+    });
+  } else {
+    throw new Error("Bad response");
+  }
+  })
 });
 
 app.get('/about', (req, res, next) =>{ // in here we are forcing a 400 error for show of local error handlers. It can be altered in many ways to see different properties

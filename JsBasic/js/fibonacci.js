@@ -8,7 +8,8 @@ function fibonacci() {
   "use strict";
   var n = document.getElementById("num").value;
   var val = f(n);
-  document.getElementById('fibonacciLbl').innerHTML=(val);
+  console.log(val);
+  document.getElementById('fibonacciLbl').innerHTML=val;
   return val;
 }
 
@@ -18,6 +19,8 @@ function f(n) {
   if (memo.hasOwnProperty(n)) {
     value = memo[n];
   } else {
+    n1 = 1;
+    n2=1;
    for(let i=0; i<n; i++){
     nextNumber = n1+n2;
     n1=n2;
