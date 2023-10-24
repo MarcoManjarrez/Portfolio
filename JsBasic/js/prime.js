@@ -1,7 +1,17 @@
+//DONE
 /*
     Prime Factorization - Have the user enter a number and find
     all Prime Factors (if there are any) and display them.
 */
+function primes() {
+  "use strict";
+  var n = document.getElementById("num").value;
+  var val = getPrimeFactors(n);
+  console.log(val);
+  document.getElementById('pf').innerHTML=val;
+  return val;
+}
+
 
 var getPrimeFactors = function (n) {
   "use strict";
@@ -22,7 +32,15 @@ var getPrimeFactors = function (n) {
 
   //TODO: Check which numbers are factors of n and also check if
   // that number also happens to be a prime
-
+  if(isPrime(n)){
+    return [n];
+  }
+  for (i = 2; i <= n; i++) {1
+    if (n % i === 0) {
+      sequence.push(i);
+      n /= i;
+    }
+  }
   return sequence;
 };
 

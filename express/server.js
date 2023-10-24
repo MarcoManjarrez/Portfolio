@@ -88,11 +88,11 @@ app
     var height = parseFloat(req.body.height);
     var bmi = weight/(height**2);
     res.send("<h1>Your bmi is " + bmi + "<h1>");
-  });
+});
 
 app.get('/stupid', function (req, res) {
     res.send('You stupid');
-  });
+});
   
 app.use((err,req,res,next)=>{
   console.error(err.stack);
