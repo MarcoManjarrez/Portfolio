@@ -1,0 +1,25 @@
+<%- include("partials/head"); -%>
+<h1>Welcome, <%= name %></h1>
+
+<% if (!name) { %>
+    <a href="/index.ejs">Not Logged in! Log In to use our service</a>
+<% } else { %>
+    <h2>Available Posts</h2>
+    <ul>
+        <% posts.forEach(post => { %>
+            <li>
+                <h3><%= post.title %></h3>
+                <p><%= post.content.substring(0, 100) %><% if (post.content.length > 100) { %>...</p><% } %>
+                <a href="/post/<%= post.id %>">Read More</a>
+            </li>
+        <% }); %>
+    </ul>
+    
+    <h2>Create a New Post</h2>
+    <form action="/create" method="post">
+        <input type="text" name="title" placeholder="Title" required><br>
+        <textarea name="content" placeholder="Content" required></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+<% } %>
+<%- include("partials/footer"); -%>

@@ -30,7 +30,6 @@ function fibonacci() {
   "use strict";
   var n = document.getElementById("num").value;
   var val = f(n);
-  console.log(val);
-  document.getElementById('fibonacciLbl').innerHTML=val;
+  document.getElementById("fibonacciLbl").textContent = val
   return val;
-}
+}*/

@@ -18,6 +18,15 @@ app.get('/', function (req, res) {
   res.render("index", { name: name }); //purposefully not defining the variable family to test ejs conditionals
 });
 
+app.get('/home', function(req, res){
+  res.render("home", { name: name} )
+})
+app.post('/create', (req, res) => {
+  const { title, content } = req.body;
+  res.write("<h1>New post"+title +": " + content + "</h1>")
+  res.redirect('/home');
+});
+
 const url = "https://api.toys/api/rock_paper_scissors";    //https://v2.jokeapi.dev/joke/Miscellaneous,Dark,Pun?blacklistFlags=nsfw,racist";
 app.get("/3v3", (req,res)=>{
   var l_url = url + "/rock";
