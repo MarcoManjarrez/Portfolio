@@ -28,4 +28,9 @@
     <p> <input type="submit" /> </p>
 
 </form>
+<ul>
+    <% drivers.forEach((driver)=>{
+        <% <li> <% driver.forename %> <% driver.surname %></li>%>
+    })%>
+</ul>
 <%- include("partials/footer") -%>
