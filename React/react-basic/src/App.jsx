@@ -1,13 +1,16 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Things from "./components/Things";
+import Card from "./components/Card";
+import pi, { squarePi, doublePi, square } from "./modules/math";
+import contacts from "./data";
 
 function App() {
   var num2 = Math.floor(Math.random() * 100);
   var name = "Balls";
   var lname = "Jones";
   var date = new Date();
-
+  //date.setHours(20);
   let greeting;
 
   const customStyle = {
@@ -33,11 +36,32 @@ function App() {
     greeting = "Freeman you fool! My god, we're doomed!";
     customStyle.background = "Red";
   }
+
+  var filteredContacts = contacts.filter((contact) => {
+    return contact.name === "Jake";
+  });
+  let mainAccum = 0;
+  var result = contacts.reduce((accum, current) => {
+    return mainAccum + current.age;
+  });
+  var filteredContactsByFind = contacts.filter((contact) => {
+    return contact.phone.includes("7");
+  });
+  var cards = filteredContactsByFind.map((contact) => (
+    <Card name={contact.name} img={contact.picture} phone={contact.phone} />
+  ));
+
   return (
     <div className="App">
       <h1 style={customStyle}>Hi hello hi, you must be {name + " " + lname}</h1>
       <h1 style={customStyle}>{greeting}</h1>
       <Things />
+      <p>The value of pi is this one right hhere: {pi}</p>
+      <p>The doubel value of pi is gonan be {doublePi()}</p>
+      <p>A pi that is squared {squarePi()}</p>
+      <p>Also check this out, the square of 42 is {square(42)}</p>
+      <p>The total added age of the contact book is {result}</p>
+      {cards}
     </div>
   );
 }
