@@ -5,10 +5,14 @@ import Avatar from "./Avatar";
 function Card(props) {
   return (
     <div className="card">
-      <Avatar src={props.img} />
-      <h2>This is a cool dude</h2>
-      <h2>{props.name}</h2>
-      <h2>{props.phone}</h2>
+      <div className="top">
+        {/*<h2>This is a cool dude</h2>*/}
+        <h2 className="name">{props.name}</h2>
+        <Avatar src={props.img} />
+      </div>
+      <div className="bottom">
+        <h2 className="info">{props.phone}</h2>
+      </div>
     </div>
   );
 }
