@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import contacts from "../data";
 import Card from "./Card";
-function Directory() {
+function Directory(props) {
   function mapContacts(cardsToMap) {
     return cardsToMap.map((contact) => (
       <Card name={contact.name} img={contact.picture} phone={contact.phone} />
@@ -22,8 +22,14 @@ function Directory() {
     /*console.log(event.target.value);*/
     setFilterString(event.target.value);
   }
+  function localListener() {
+    props.listener();
+  }
   return (
     <div>
+      <div>
+        <button onClick={localListener}>Log out</button>
+      </div>
       <div>
         <input
           type="text"

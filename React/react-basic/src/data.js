@@ -11,7 +11,7 @@ const contacts=[
         "name": "Scraw the destroyer",
         "picture": pic1,
         "phone":"332-312-5634",
-        "age": "33056"
+        "age": "330"
     },
     {
         "name": "Jake",

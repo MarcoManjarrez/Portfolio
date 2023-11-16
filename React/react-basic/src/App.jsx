@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route } from "react-dom";
 import "./App.css";
 import pi, { squarePi, doublePi, square } from "./modules/math";
 import contacts from "./data";
@@ -7,7 +8,8 @@ import Login from "./components/Login";
 import Directory from "./components/Directory";
 
 function App() {
-  var rand = Math.random();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  var rand = Math.floor(Math.random() * 100);
   //date.setHours(20);
   var result = contacts.reduce(
     (result, { age, name }) => {
@@ -17,11 +19,12 @@ function App() {
     },
     { concatName: "", totalAge: 0 }
   );
-
+  function changeLoggedState() {
+    setIsLoggedIn(!isLoggedIn);
+  }
   return (
     <div className="App">
       <Header />
-      <Login />
       <p>The value of pi is this one right hhere: {pi}</p>
       <p>The doubel value of pi is gonan be {doublePi()}</p>
       <p>A pi that is squared {squarePi()}</p>
@@ -32,7 +35,11 @@ function App() {
         The total added age of the contact book is {result.totalAge} and the
         names on the list are {result.concatName}
       </p>
-      <Directory />
+      {isLoggedIn ? (
+        <Directory listener={changeLoggedState} />
+      ) : (
+        <Login listener={changeLoggedState} />
+      )}
     </div>
   );
 }
