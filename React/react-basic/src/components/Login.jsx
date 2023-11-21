@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Login(props) {
   //const [user, setUser] = useState("");
@@ -26,15 +27,27 @@ function Login(props) {
     });
   } */ //this needs a function userlistener to work
   function submitForm(event) {
-    if (userProfile.user === "Gabriel" && userProfile.password === "12345") {
-      console.log(
-        "Yoou are an idiot. I mean, you logged in with the easiest password ever"
-      );
-      props.listener();
-    } else {
-      console.log("Lol wrong");
-      setMessage("You will be executed for attempting to fake your identity");
-    }
+    axios
+      .post("/login", {
+        user: userProfile.user,
+        password: userProfile.password,
+      })
+      .then((res) => {
+        if (res.data.authorization === 1) {
+          console.log(
+            "Yoou are an idiot. I mean, you logged in with the easiest password ever"
+          );
+          props.listener();
+        } else {
+          console.log("Lol wrong");
+          setMessage(
+            "You will be executed for attempting to fake your identity"
+          );
+        }
+      })
+      .catch((err) => {
+        console.error(err.error);
+      });
     event.preventDefault();
   }
   return (

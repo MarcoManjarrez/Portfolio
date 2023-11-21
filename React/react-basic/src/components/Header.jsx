@@ -1,5 +1,7 @@
 import React from "react";
 import Things from "./Things";
+import { Link } from "react-router-dom";
+
 function Header() {
   var name = "Balls";
   var lname = "Jones";
@@ -34,6 +36,22 @@ function Header() {
       <h1 style={customStyle}>Hi hello hi, you must be {name + " " + lname}</h1>
       <h1 style={customStyle}>{greeting}</h1>
       <Things />
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/directory">Directory</Link>
+          </li>
+          <li>
+            <Link to="/agenda">Agenda</Link>
+          </li>
+          <li>
+            <Link to="/phone">Phone</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
