@@ -5,7 +5,7 @@ import contacts from "./data";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Directory from "./components/Directory";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Agenda from "./components/Agenda";
 import Phonebook from "./components/Phonebook";
 
@@ -24,17 +24,36 @@ function App() {
   function changeLoggedState() {
     setIsLoggedIn(!isLoggedIn);
   }
+  function CheckLogStatus(props) {
+    return isLoggedIn ? (
+      <props.component listener={changeLoggedState} />
+    ) : (
+      <Navigate to="/" />
+    );
+  }
   return (
     <div className="App">
-      <Header />
+      <CheckLogStatus component={Header} />
       <Routes>
-        <Route path="/" element={<Login listener={changeLoggedState} />} />
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/directory" />
+            ) : (
+              <Login listener={changeLoggedState} />
+            )
+          }
+        />
         <Route
           path="/directory"
-          element={<Directory listener={changeLoggedState} />}
+          element={<CheckLogStatus component={Directory} />}
         />
-        <Route path="/phone" element={<Phonebook />} />
-        <Route path="/agenda" element={<Agenda />} />
+        <Route
+          path="/phone"
+          element={<CheckLogStatus component={Phonebook} />}
+        />
+        <Route path="/agenda" element={<CheckLogStatus component={Agenda} />} />
       </Routes>
       <p>The value of pi is this one right hhere: {pi}</p>
       <p>The doubel value of pi is gonan be {doublePi()}</p>
@@ -46,12 +65,6 @@ function App() {
         The total added age of the contact book is {result.totalAge} and the
         names on the list are {result.concatName}
       </p>
-      {/*
-      {isLoggedIn ? (
-        <Directory listener={changeLoggedState} />
-      ) : (
-        <Login listener={changeLoggedState} />
-      )}*/}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import Things from "./Things";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header(props) {
   var name = "Balls";
   var lname = "Jones";
   var date = new Date();
@@ -31,27 +31,50 @@ function Header() {
     customStyle.background = "#3F4D00";
   }
 
+  function logOut() {
+    props.listener();
+  }
+
   return (
     <div>
       <h1 style={customStyle}>Hi hello hi, you must be {name + " " + lname}</h1>
       <h1 style={customStyle}>{greeting}</h1>
       <Things />
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/directory">Directory</Link>
-          </li>
-          <li>
-            <Link to="/agenda">Agenda</Link>
-          </li>
-          <li>
-            <Link to="/phone">Phone</Link>
-          </li>
-        </ul>
-      </nav>
+      <div className="container">
+        <nav className="navbar navbar-expand-lg bg-light">
+          <ul className="navbar-nav  mr-auto">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/directory" className="nav-link">
+                Directory
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/agenda" className="nav-link">
+                Agenda
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/phone" className="nav-link">
+                Phone
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="btn btn-outline-success my-2 my-sm-0"
+                onClick={logOut}
+              >
+                Logout
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 }
